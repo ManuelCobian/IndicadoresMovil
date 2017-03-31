@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "452441896095",
+    "firebase_url": "https://indicadores-3417d.firebaseio.com",
+    "project_id": "indicadores-3417d",
+    "storage_bucket": "indicadores-3417d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452441896095:android:481d0f0151b9a49a",
+        "android_client_info": {
+          "package_name": "com.example.joseantonio.indicadoresmovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452441896095-0ob15ruq21b9qrpbum23gfrpbsc9j0l0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.joseantonio.indicadoresmovil",
+            "certificate_hash": "90d260c79004f0b35ffd67e412f91707b942df16"
+          }
+        },
+        {
+          "client_id": "452441896095-l9ogsvalf9gou3mhcq0mb9fl6tponl70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6G8xo6VPGkqkpexZ0r_9HNnwb2ZD9Fpk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452441896095-l9ogsvalf9gou3mhcq0mb9fl6tponl70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

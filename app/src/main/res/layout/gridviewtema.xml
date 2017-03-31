@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#fff"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:elevation="20dp"
+        android:background="#0097a7"
+        android:padding="20dp"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/grid_item_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="Descripción del contenido de la imagen"
+            android:src="@drawable/enfermeria" />
+
+
+        <TextView
+            android:id="@+id/grid_item_title"
+            android:layout_width="200dp"
+            android:layout_height="138dp"
+            android:textSize="50dp"
+            android:popupTheme="@style/AppTheme.PopupOverlay"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="hola"
+            android:textColor="#fff"
+            android:layout_marginTop="170dp"
+            android:textAppearance="?android:attr/textAppearance"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
