@@ -233,11 +233,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private  void  agregar_token( final String token){
+     private  void  agregar_token( final String token){
         //aqui se agrega a favoritos
         //final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
 
-        String json="http://10.10.42.9:8080/apis/registro.php";
+        String json="http://ventanaesperanza.webcindario.com/apis/registro.php";
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -267,11 +267,7 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(request);
 
 
-        Toast.makeText(
-                this,
-                token,
-                Toast.LENGTH_SHORT)
-                .show();
+
     }
 
 
