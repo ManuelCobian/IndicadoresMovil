@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -519,6 +520,48 @@ public class UpdatesActivity extends AppCompatActivity
     private void Retorno(){
         Toast.makeText(UpdatesActivity.this, "No Se Encontraron Temas ", Toast.LENGTH_SHORT).show();
         back_temas();
+    }
+
+
+    private  void  agregar_favoritos( final int id){
+        //aqui se agrega a favoritos
+        final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
+
+        String json="http://plancolima.col.gob.mx/apis/insert_favoritos";
+        RequestQueue requestQueue;
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+
+        StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String>parameters=new HashMap<String, String>();
+                parameters.put("nombre", NombreCompleto);
+                parameters.put("email",id_indica);
+
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);
+
+
+        Toast.makeText(
+                UpdatesActivity.this,
+                "indicador leido",
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
 }
