@@ -13,22 +13,10 @@
 
     <ImageView
         android:id="@+id/grid_item_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:src="@drawable/gober" />
 
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:gravity="center_horizontal"
-        android:text="Gobierno del estado de Colima"
-        android:textColor="#000"
-        android:textSize="25sp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        />
 
 </RelativeLayout>
