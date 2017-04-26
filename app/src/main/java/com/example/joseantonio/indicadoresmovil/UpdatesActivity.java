@@ -71,11 +71,11 @@ public class UpdatesActivity extends AppCompatActivity
     private GridViewAdapter mGridAdapter;
     private ArrayList<GridItem> mGridData;
     String seccion;
-    /*private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
-    private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";*/
+    private String FEED_URL = "http://10.10.42.9:8080/apis/get_indicadores.php";
+    private String FEED_URLs = "http://10.10.42.9:8080/apis/get_indicadores.php";
 
-    private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
-    private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";
+   // private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
+    //private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";
     String  NombreCompleto,pass;
     TextView user, txtNombreCompleto;
     private Session session;
