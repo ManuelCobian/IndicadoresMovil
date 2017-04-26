@@ -129,7 +129,7 @@ public class UpdatesActivity extends AppCompatActivity
                 final Intent intenta = new Intent(UpdatesActivity.this,Scrolling_indicador.class);
                 intenta.putExtra("id",v.getId());//esta funcion jala los id
                 startActivity(intenta);
-
+                agregar_favoritos(v.getId());
 
                 //Start details activity
                 mGridData.get(position);
@@ -527,7 +527,7 @@ public class UpdatesActivity extends AppCompatActivity
         //aqui se agrega a favoritos
         final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
 
-        String json="http://plancolima.col.gob.mx/apis/insert_favoritos";
+        String json="http://10.10.42.9:8080/apis/elimina_favoritos.php";
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -546,8 +546,7 @@ public class UpdatesActivity extends AppCompatActivity
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String>parameters=new HashMap<String, String>();
-                parameters.put("nombre", NombreCompleto);
-                parameters.put("email",id_indica);
+                parameters.put("id",id_indica);
 
 
                 return parameters;
