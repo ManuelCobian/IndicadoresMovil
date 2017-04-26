@@ -271,7 +271,11 @@ public class Favoritos extends AppCompatActivity
             back_inicio();
         } else if (id == R.id.nav_slideshow) {
             back_favoritos();
-        }  else if (id == R.id.nav_share) {
+        }
+        else if (id == R.id.nav_aactualizacion) {
+               back_updates();
+            }
+         else if (id == R.id.nav_share) {
             session = new Session(this);
             //aqui cierras sesion
             logout();
@@ -422,6 +426,19 @@ Log.d("favoritos",String.valueOf(response));
     public  void back_temas(){
 
         Intent favoritos=new Intent(Favoritos.this,Indicadores.class);
+
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+
+        startActivity(favoritos);
+        finish();
+
+    }
+
+    public  void back_updates(){
+
+        Intent favoritos=new Intent(Favoritos.this,UpdatesActivity.class);
 
         favoritos.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         favoritos.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

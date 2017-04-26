@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/content_ver__indicadores"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+tools:context="com.example.joseantonio.indicadoresmovil.UpdatesActivity"
+tools:showIn="@layout/app_bar_updates">
+
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="text"
+    android:ems="10"
+    android:id="@+id/buscar"
+    android:hint="Buscar Indicador"
+    android:background="#fff"
+    android:textColor="#fff"
+    android:textColorHint="#C4C4C4"
+    android:fontFamily="serif"
+    android:padding="20dp"
+
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:visibility="invisible"
+    />
+
+<ProgressBar
+    android:background="#fff"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/progressBar"
+    android:layout_centerInParent="true"
+    android:visibility="gone"/>
+
+<GridView
+    android:id="@+id/gridView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:columnWidth="100dp"
+    android:drawSelectorOnTop="true"
+    android:gravity="center"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="5dp"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"></GridView>
+
+
+</RelativeLayout>
