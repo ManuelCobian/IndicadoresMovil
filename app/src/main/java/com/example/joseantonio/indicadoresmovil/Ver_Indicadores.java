@@ -270,7 +270,11 @@ public class Ver_Indicadores extends AppCompatActivity
             back_inicio();
         } else if (id == R.id.tema) {
             back_favoritos();
-        }  else if (id == R.id.nav_share) {
+        }
+        else if (id == R.id.nav_aactualizacion) {
+            back_updates();
+        }
+        else if (id == R.id.nav_share) {
             session = new Session(this);
             //aqui cierras sesion
             logout();
@@ -283,6 +287,8 @@ public class Ver_Indicadores extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
     //Downloading data asynchronously
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
@@ -433,6 +439,21 @@ public class Ver_Indicadores extends AppCompatActivity
         finish();
 
     }
+
+    public  void back_updates(){
+
+        Intent favoritos=new Intent(Ver_Indicadores.this,UpdatesActivity.class);
+
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        favoritos.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(favoritos);
+        finish();
+
+    }
+
 
 
 
