@@ -304,12 +304,18 @@ public class Scrolling_indicador extends AppCompatActivity {
 
                         // Secretaria.append("Fuente :"+" "+Fuente);
                         // Formula.setText("Formula  :"+" "+formula);
-                        val.setText(valor+medidas(medida));
 
+
+                        name.setTitle("Valor Actual"+valor+medidas(medida));
+
+                        val.setText(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1,nombre.length()).toLowerCase());
+
+
+                        name.setTitle("Valor Actual \n" +valor+medidas(medida));
                         Titulo.setTextSize(14);
 
 
-                        Titulo.setText(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1,nombre.length()).toLowerCase()+"\n"+"Unidad :"+" "+
+                        Titulo.setText("Unidad :"+" "+
 
                                 Character.toUpperCase(medida.charAt(0)) + medida.substring(1,medida.length()).toLowerCase()
                         );
@@ -353,8 +359,8 @@ public class Scrolling_indicador extends AppCompatActivity {
     public void datos(final String id_indicar ){
 
 
-            String signo;
-            String valor;
+        String signo;
+        String valor;
         StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -370,7 +376,7 @@ public class Scrolling_indicador extends AppCompatActivity {
                         String Fuente=contacto.getString("fuente");
                         String formula=contacto.getString("formula");
 
-                       String id_tema =contacto.getString("id_tema");
+                        String id_tema =contacto.getString("id_tema");
                         String valor =contacto.getString("valor");
                         String medida = contacto.getString("medida");
                         String alerta = contacto.getString("alerta");
@@ -379,10 +385,11 @@ public class Scrolling_indicador extends AppCompatActivity {
 
                         char signo='%';
                         nombre = Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1,nombre.length());
-                        name.setTitle(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1,nombre.length()).toLowerCase()+"\n");
+
+
                         names=nombre;
 
-                            ImageView image = (ImageView) findViewById(R.id.image_paralax);//La imagen de cada indicador
+                        ImageView image = (ImageView) findViewById(R.id.image_paralax);//La imagen de cada indicador
 
 
 
@@ -397,7 +404,7 @@ public class Scrolling_indicador extends AppCompatActivity {
                                     .load(R.drawable.salud)
                                     .centerCrop()
                                     .into(image);
-                           // NAME="Salud";
+                            // NAME="Salud";
 
                         }
 
@@ -523,7 +530,7 @@ public class Scrolling_indicador extends AppCompatActivity {
 
 
                         if (dates.equals("0")){
-                            ((TextView) row.findViewById(R.id.amount)).setText(dates);
+                            ((TextView) row.findViewById(R.id.amount)).setText("fecha no registrada");
                             ((TextView) row.findViewById(R.id.date)).setText(valor+medidas(medidas));
                         }
 
@@ -734,7 +741,7 @@ public class Scrolling_indicador extends AppCompatActivity {
 
 
         }
-            return medidas;
+        return medidas;
     }
 
 }

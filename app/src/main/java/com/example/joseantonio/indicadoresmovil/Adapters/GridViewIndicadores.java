@@ -57,12 +57,12 @@ public class GridViewIndicadores extends ArrayAdapter<GridItem> {
             holder.imageView = (ImageView) row.findViewById(R.id.grid_item_image);
             holder.courseTextView = (TextView) row.findViewById(R.id.grid_item_course);
             holder.courseTextView.setVisibility(View.INVISIBLE);
-           //holder.courseTextId = (TextView) row.findViewById(R.id.grid_item_course) ;
+            //holder.courseTextId = (TextView) row.findViewById(R.id.grid_item_course) ;
 
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
-          //  holder.courseTextView.getText();
+            //  holder.courseTextView.getText();
         }
 
         GridItem item = mGridData.get(position);
@@ -85,7 +85,7 @@ public class GridViewIndicadores extends ArrayAdapter<GridItem> {
     static class ViewHolder {
         TextView titleTextView;
         ImageView imageView;
-       TextView courseTextView;
+        TextView courseTextView;
         TextView courseTextId;
 
 

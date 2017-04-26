@@ -53,7 +53,7 @@ public class GridViewVer extends ArrayAdapter<GridItem> {
             holder = new GridViewIndicadores.ViewHolder();
             holder.titleTextView = (TextView) row.findViewById(R.id.grid_item_title);
             holder.imageView = (ImageView) row.findViewById(R.id.grid_item_image);
-         //   holder.courseTextView = (TextView) row.findViewById(R.id.grid_item_course);
+            //   holder.courseTextView = (TextView) row.findViewById(R.id.grid_item_course);
 //            holder.courseTextView.setVisibility(View.INVISIBLE);
             //holder.courseTextId = (TextView) row.findViewById(R.id.grid_item_course) ;
 

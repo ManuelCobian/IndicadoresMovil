@@ -60,13 +60,13 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         GridItem item = mGridData.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
         holder.courseTextView.setText(Html.fromHtml(item.getCourse()));
-       // holder.idcurso.setText(Html.fromHtml(item.getId()));
+        // holder.idcurso.setText(Html.fromHtml(item.getId()));
 
 
 //        Picasso.with(mContext).load(item.getImage()).into(holder.imageView);
 
         row.setId(Integer.parseInt(item.getId()));
-       // Picasso.with(mContext).load(item.getImage()).into(holder.imageView);
+        // Picasso.with(mContext).load(item.getImage()).into(holder.imageView);
 
 
 
@@ -89,6 +89,16 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
             // Log.d("row",String.valueOf(row.getId()));
             holder.titleTextView.setTextColor(Color.WHITE);
             holder.courseTextView.setTextColor(Color.WHITE);
+
+
+        }
+
+        if (item.getAlerta().equals("secondary")){
+            row.setBackgroundColor(Color.WHITE);
+
+            // Log.d("row",String.valueOf(row.getId()));
+            holder.titleTextView.setTextColor(Color.BLACK);
+            holder.courseTextView.setTextColor(Color.BLACK);
 
 
         }

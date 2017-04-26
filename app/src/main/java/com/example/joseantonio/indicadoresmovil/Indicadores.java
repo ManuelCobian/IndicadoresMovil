@@ -100,7 +100,7 @@ public class Indicadores extends AppCompatActivity
 
 
 
-       // buscar=(EditText)findViewById(R.id.buscar);
+        // buscar=(EditText)findViewById(R.id.buscar);
 
         action();
 
@@ -114,7 +114,7 @@ public class Indicadores extends AppCompatActivity
 
 
         //Start download
-       Conexion();
+        Conexion();
         httpHandler handler = new httpHandler();
 
         String txt = handler.post(FEED_URLs,busqueda,indica);
@@ -141,8 +141,8 @@ public class Indicadores extends AppCompatActivity
 
         //RECIBO LOS PARAMETROS
         SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
-          NombreCompleto=prefe.getString("mail","");
-          pass=prefe.getString("pass","");
+        NombreCompleto=prefe.getString("mail","");
+        pass=prefe.getString("pass","");
 
 
 
@@ -160,7 +160,7 @@ public class Indicadores extends AppCompatActivity
         View header=navigationView.getHeaderView(0);
         txtNombreCompleto = (TextView) header.findViewById(R.id.txtNombreCompleto);
         //txtNombreCompleto.setText(NombreCompleto);
-        final ImageView user=(ImageView)header.findViewById(R.id.users);
+        final ImageView user=(ImageView)header.findViewById(R.id.User);
 
 
         RequestQueue requestQueues;
@@ -319,7 +319,7 @@ public class Indicadores extends AppCompatActivity
             if (result == 1) {
                 mGridAdapter.setGridData(mGridData);
             } else {
-                    Retorno();
+                Retorno();
             }
 
             //Hide progressbar
@@ -357,7 +357,7 @@ public class Indicadores extends AppCompatActivity
 
                 id_anun = post.optString("id_tema");
                 String curso = post.optString("curso");
-              ;
+                ;
                 item = new GridItem();
                 item.setTitle(title);
                 if (curso=="null"){
@@ -449,18 +449,18 @@ public class Indicadores extends AppCompatActivity
         SharedPreferences.Editor editor=preferencias.edit();
         editor.putString("mail", buscar.getText().toString());
         editor.commit();
-         if (buscar.length()>0){
+        if (buscar.length()>0){
 
 
 
-             Intent favoritos=new Intent(Indicadores.this,GridViewActivity.class);
+            Intent favoritos=new Intent(Indicadores.this,GridViewActivity.class);
 
-             favoritos.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-             favoritos.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-             favoritos.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            favoritos.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            favoritos.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            favoritos.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 
-             startActivity(favoritos);
-             finish();
+            startActivity(favoritos);
+            finish();
 
 
         }
@@ -514,7 +514,7 @@ public class Indicadores extends AppCompatActivity
             }
         } else {
        /* No estas conectado a internet */
-           confirmacion();
+            confirmacion();
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }

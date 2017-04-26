@@ -8,7 +8,7 @@
     <application
         android:allowBackup="true"
         android:minSdkVersion = "8"
-        android:icon="@drawable/main"
+        android:icon="@mipmap/iconito"
         android:label="Indicadores Movil"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
