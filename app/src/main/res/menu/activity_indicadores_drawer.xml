@@ -18,6 +18,10 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/favorites"
             android:title="Mis Favoritos" />
+        <item
+            android:id="@+id/nav_aactualizacion"
+            android:icon="@drawable/alert"
+            android:title="Actualizaciones" />
 
     </group>
 

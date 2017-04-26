@@ -10,6 +10,7 @@
             android:id="@+id/nav_gallery"
             android:icon="@drawable/grafica"
             android:title="Indicadores" />
+
         <item
             android:id="@+id/nav_temas"
             android:icon="@drawable/topic"
@@ -20,6 +21,12 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/favorites"
             android:title="Mis Favoritos" />
+
+        <item
+            android:id="@+id/nav_aactualizacion"
+            android:icon="@drawable/alert"
+            android:title="Actualizaciones" />
+
 
 
     </group>

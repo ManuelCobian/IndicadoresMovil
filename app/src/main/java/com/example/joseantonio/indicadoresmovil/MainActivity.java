@@ -237,7 +237,8 @@ public class MainActivity extends AppCompatActivity {
         //aqui se agrega a favoritos
         //final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
 
-        String json="http://plancolima.col.gob.mx/apis/token_registro";
+       // String json="http://plancolima.col.gob.mx/apis/token_registro";
+        String json="http://10.10.42.9:8080/apis/registro.php";
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                 Map<String,String>parameters=new HashMap<String, String>();
 
                 parameters.put("Token",token);
-                parameters.put("usr",name.getText().toString());
+              //  parameters.put("usr",name.getText().toString());
 
 
                 return parameters;
