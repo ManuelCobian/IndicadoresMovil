@@ -101,7 +101,7 @@ public class Indicadores extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        session=new Session(this);
 
         // buscar=(EditText)findViewById(R.id.buscar);
 
@@ -553,8 +553,8 @@ public class Indicadores extends AppCompatActivity
     }
 
     private void Retorno(){
-        Toast.makeText(Indicadores.this, "No Se Encontraron Temas ", Toast.LENGTH_SHORT).show();
-        back_temas();
+        Toast.makeText(Indicadores.this, "Sin acceso al servidor revise su conexion ", Toast.LENGTH_SHORT).show();
+        logout();
     }
 
     public String  ShowNotif(){
