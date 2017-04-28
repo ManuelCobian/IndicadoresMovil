@@ -10,6 +10,7 @@ public class GridItem {
     private String course;
     private String id;
     private  String alerta;
+    private  String total;
 
 
     public String getAlerta() {
@@ -53,5 +54,13 @@ public class GridItem {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }

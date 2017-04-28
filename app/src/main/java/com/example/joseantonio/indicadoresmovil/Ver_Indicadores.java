@@ -71,10 +71,10 @@ public class Ver_Indicadores extends AppCompatActivity
     String id_anun;
     private GridViewAdapter mGridAdapter;
     private ArrayList<GridItem> mGridData;
-    String seccion;
+    String seccion,pigs;
     /*private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
     private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";*/
-
+    NavigationView navigationView;
     private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
     private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";
     String  NombreCompleto,pass;
@@ -93,6 +93,7 @@ public class Ver_Indicadores extends AppCompatActivity
         setContentView(R.layout.activity_ver__indicadores);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+         ShowNotif();
         action();
 
 
@@ -162,7 +163,7 @@ public class Ver_Indicadores extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //RECIBO LOS PARAMETROS
@@ -626,6 +627,56 @@ public class Ver_Indicadores extends AppCompatActivity
     private void Retorno(){
         Toast.makeText(Ver_Indicadores.this, "No Se Encontraron Temas ", Toast.LENGTH_SHORT).show();
         back_temas();
+    }
+
+
+    public String  ShowNotif(){
+        RequestQueue requestQueue;
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String json="http://10.10.42.9:8080/apis/count_alertas.php";
+        StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject o = new JSONObject(response);
+
+                    Log.d("dates",String.valueOf(response));
+                    JSONArray a = o.getJSONArray("registros");
+                    for (int i = 0; i < a.length(); i++) {
+                        JSONObject contacto=a.getJSONObject(i);
+
+                        pigs =contacto.getString("not");
+
+                        if (!pigs.equals("0")) {
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizacion"+" "+pigs);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String>parameters=new HashMap<String, String>();
+                Bundle bundle = getIntent().getExtras();
+                String id="1";
+                parameters.put("id",id);
+
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);
+        return pigs;
     }
 
 

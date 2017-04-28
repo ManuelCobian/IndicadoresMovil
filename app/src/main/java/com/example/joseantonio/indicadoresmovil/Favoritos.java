@@ -75,9 +75,10 @@ public class Favoritos extends AppCompatActivity
     private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_favoritos";
     String text,id_fav,id_indica;
     EditText buscar;
-    String name,pass,seccion;
+    String name,pass,seccion,pigs;
     private Session session;
     TextView user, txtNombreCompleto;
+    NavigationView navigationView;
     public  Favoritos(){
 
     }
@@ -85,7 +86,7 @@ public class Favoritos extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos);
-
+        ShowNotif();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         buscar=(EditText)findViewById(R.id.buscar);
@@ -163,7 +164,7 @@ public class Favoritos extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //inserto el nombre en el nav
         View header=navigationView.getHeaderView(0);
@@ -315,6 +316,7 @@ public class Favoritos extends AppCompatActivity
                     result = 1; // Successful
                 } else {
                     result = 0; //"Failed
+
                 }
             } catch (Exception e) {
                 // Log.d(TAG, e.getLocalizedMessage());
@@ -331,7 +333,9 @@ public class Favoritos extends AppCompatActivity
                 mGridAdapter.setGridData(mGridData);
             } else {
 
-                Retorno();}
+                Retorno();
+
+            }
 
             //Hide progressbar
             mProgressBar.setVisibility(View.GONE);
@@ -559,6 +563,55 @@ Log.d("favoritos",String.valueOf(response));
     private void Retorno(){
         Toast.makeText(Favoritos.this, "No Tiene Favoritos  ", Toast.LENGTH_SHORT).show();
         back_temas();
+    }
+
+    public String  ShowNotif(){
+        RequestQueue requestQueue;
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String json="http://10.10.42.9:8080/apis/count_alertas.php";
+        StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject o = new JSONObject(response);
+
+                    Log.d("dates",String.valueOf(response));
+                    JSONArray a = o.getJSONArray("registros");
+                    for (int i = 0; i < a.length(); i++) {
+                        JSONObject contacto=a.getJSONObject(i);
+
+                        pigs =contacto.getString("not");
+
+                        if (!pigs.equals("0")) {
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizacion"+" "+pigs);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String>parameters=new HashMap<String, String>();
+                Bundle bundle = getIntent().getExtras();
+                String id="1";
+                parameters.put("id",id);
+
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);
+        return pigs;
     }
 
 

@@ -68,13 +68,13 @@ public class UpdatesActivity extends AppCompatActivity
     int id;//para hacer algo  con push
     private GridView mGridView;
     private ProgressBar mProgressBar;
-    String id_anun;
+    String id_anun,total;
     private GridViewAdapter mGridAdapter;
     private ArrayList<GridItem> mGridData;
     String seccion;
     private String FEED_URL = "http://10.10.42.9:8080/apis/get_indicadores.php";
     private String FEED_URLs = "http://10.10.42.9:8080/apis/get_indicadores.php";
-
+    NavigationView navigationView;
    // private String FEED_URL = "http://plancolima.col.gob.mx/apis/get_indicadores";
     //private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_indicadores";
     String  NombreCompleto,pass;
@@ -91,6 +91,7 @@ public class UpdatesActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        final String id_indica = String.valueOf(getIntent().getExtras().getInt("id"));//recibo el di lo convierto en int
         setContentView(R.layout.activity_updates);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,7 +130,7 @@ public class UpdatesActivity extends AppCompatActivity
                 final Intent intenta = new Intent(UpdatesActivity.this,Scrolling_indicador.class);
                 intenta.putExtra("id",v.getId());//esta funcion jala los id
                 startActivity(intenta);
-                agregar_favoritos(v.getId());
+              eliminar_leido(v.getId());
 
                 //Start details activity
                 mGridData.get(position);
@@ -142,11 +143,15 @@ public class UpdatesActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        toggle.syncState();drawer.setDrawerListener(toggle);
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
 
 
         //RECIBO LOS PARAMETROS
@@ -157,6 +162,7 @@ public class UpdatesActivity extends AppCompatActivity
         //inserto el nombre en el nav
         View header=navigationView.getHeaderView(0);
         txtNombreCompleto = (TextView) header.findViewById(R.id.txtNombreCompleto);
+
         txtNombreCompleto.setText(NombreCompleto);
         final ImageView user=(ImageView)header.findViewById(R.id.users);
         RequestQueue requestQueues;
@@ -251,20 +257,26 @@ public class UpdatesActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
             back_inicio();
+           item.setTitle("ponchito");
         } else if (id == R.id.nav_gallery) {
             back_inicio();
+            item.setTitle("ponchito");
         } else if (id == R.id.nav_fav) {
             back_favoritos();
+            item.setTitle("ponchito");
         }
         else if (id == R.id.nav_aactualizacion) {
             back_updates();
+            item.setTitle("ponchito");
         }
         else if (id == R.id.nav_share) {
             session = new Session(this);
             //aqui cierras sesion
             logout();
+            item.setTitle("ponchito");
         }
         else if(id==R.id.nav_temas){
+            item.setTitle("ponchito");
            back_temas();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -285,9 +297,8 @@ public class UpdatesActivity extends AppCompatActivity
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost(FEED_URLs);
                 List<NameValuePair> parametros = new ArrayList<NameValuePair>();
-                parametros.add(new BasicNameValuePair("email",busqueda));
 
-
+                parametros.add(new BasicNameValuePair("email",""));
                 httppost.setEntity(new UrlEncodedFormEntity(parametros));
 
                 HttpResponse httpResponse = httpclient.execute(httppost);
@@ -301,6 +312,7 @@ public class UpdatesActivity extends AppCompatActivity
                     result = 1; // Successful
                 } else {
                     result = 0; //"Failed
+
                 }
             } catch (Exception e) {
                 // Log.d(TAG, e.getLocalizedMessage());
@@ -313,12 +325,17 @@ public class UpdatesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             // Download complete. Lets update UI
 
-            if (result == 1) {
+            if (result != 0) {
                 mGridAdapter.setGridData(mGridData);
-            } else {
 
+            }
+            if (mGridAdapter.isEmpty()){
                 Retorno();
             }
+
+
+
+
 
             //Hide progressbar
             mProgressBar.setVisibility(View.GONE);
@@ -358,7 +375,7 @@ public class UpdatesActivity extends AppCompatActivity
                 id_anun = post.optString("id_anuncio");
                 String curso = post.optString("curso");
                 String alerta=post.optString("alerta");
-
+                total=alerta;
                 if(curso=="null"){
                     curso="No esta definida";
                 }
@@ -366,7 +383,8 @@ public class UpdatesActivity extends AppCompatActivity
                 item.setTitle(title);
                 item.setCourse(curso);
                 item.setId(id_anun);
-                item.setAlerta(alerta);
+                item.setAlerta("secundary");
+                item.setTotal(alerta);
                 //Log.d("alert",alerta);
 
                 mGridData.add(item);
@@ -494,6 +512,8 @@ public class UpdatesActivity extends AppCompatActivity
 
                 new UpdatesActivity.AsyncHttpTask().execute(FEED_URL);
 
+
+
             }
         } else {
        /* No estas conectado a internet */
@@ -518,14 +538,19 @@ public class UpdatesActivity extends AppCompatActivity
     }
 
     private void Retorno(){
-        Toast.makeText(UpdatesActivity.this, "No Se Encontraron Temas ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(UpdatesActivity.this, "No hay actualizacion ", Toast.LENGTH_SHORT).show();
         back_temas();
     }
 
 
-    private  void  agregar_favoritos( final int id){
+    private  void  eliminar_leido( final int id){
         //aqui se agrega a favoritos
+
         final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
+
+        if(id<0){
+            Retorno();
+        }
 
         String json="http://10.10.42.9:8080/apis/elimina_favoritos.php";
         RequestQueue requestQueue;
@@ -556,11 +581,9 @@ public class UpdatesActivity extends AppCompatActivity
         requestQueue.add(request);
 
 
-        Toast.makeText(
-                UpdatesActivity.this,
-                "indicador leido",
-                Toast.LENGTH_SHORT)
-                .show();
+
     }
+
+
 
 }

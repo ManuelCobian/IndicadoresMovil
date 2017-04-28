@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -83,7 +85,8 @@ public class Indicadores extends AppCompatActivity
     private Session session;
     EditText buscar;
     String busqueda="no";
-    String indica,activar;
+    String indica,activar,pigs;
+    NavigationView navigationView;
 
 
 
@@ -91,7 +94,7 @@ public class Indicadores extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        ShowNotif();
 
         setContentView(R.layout.activity_indicadores);
 
@@ -152,7 +155,7 @@ public class Indicadores extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -552,6 +555,55 @@ public class Indicadores extends AppCompatActivity
     private void Retorno(){
         Toast.makeText(Indicadores.this, "No Se Encontraron Temas ", Toast.LENGTH_SHORT).show();
         back_temas();
+    }
+
+    public String  ShowNotif(){
+        RequestQueue requestQueue;
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        String json="http://10.10.42.9:8080/apis/count_alertas.php";
+        StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject o = new JSONObject(response);
+
+                    Log.d("dates",String.valueOf(response));
+                    JSONArray a = o.getJSONArray("registros");
+                    for (int i = 0; i < a.length(); i++) {
+                        JSONObject contacto=a.getJSONObject(i);
+
+                        pigs =contacto.getString("not");
+
+                        if (!pigs.equals("0")) {
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizacion"+" "+pigs);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String>parameters=new HashMap<String, String>();
+                Bundle bundle = getIntent().getExtras();
+                String id="1";
+                parameters.put("id",id);
+
+
+                return parameters;
+
+            }
+        };
+        requestQueue.add(request);
+        return pigs;
     }
 
 

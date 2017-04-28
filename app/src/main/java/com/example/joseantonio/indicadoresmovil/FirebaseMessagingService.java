@@ -26,36 +26,40 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-
-        showNotification(remoteMessage.getData().get("message"),remoteMessage.getData().get("MyKey1"),remoteMessage.getData().get("MyKey2"),remoteMessage.getData().get("MyKey3"),
-                remoteMessage.getData().get("MyKey4"));
+        String mensaje;
+        String nombre = null;
         Log.d("id",remoteMessage.getData().get("MyKey1"));
         Log.d("mensaje",remoteMessage.getData().get("message"));
-        Log.d("mensaje",remoteMessage.getData().get("MyKey4"));
+
+
+
+        try {
+            JSONObject o = new JSONObject(remoteMessage.getData().get("MyKey1"));
+            mensaje= o.getString("id_indica");
+            nombre=o.getString("titulo");
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        showNotification(remoteMessage.getData().get("message"),remoteMessage.getData().get("MyKey1"));
 
     }
 
-    private void showNotification(String message,String indica,String indica2,String indica3,String pantalla) {
+    private void showNotification(String message,String titulo) {
         long[] pattern = new long[]{1000, 500, 1000};
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        String mensaje="";
+        String mensaje="", indicador="",id_indica="";
         Intent i = new Intent();
-//        i.putExtra("id",Integer.parseInt(id_indica));
+        //i.putExtra("id",Integer.parseInt(id_indica));
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setClass(this,UpdatesActivity.class);
 
-        if (pantalla.equals("main")){
-            i.setClass(this,Ver_Indicadores.class);
-
-        }
-
-        if (pantalla.equals("fav")){
-            i.setClass(this,Favoritos.class);
-
-        }
 
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_UPDATE_CURRENT);
@@ -69,6 +73,16 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        try {
+            JSONObject o = new JSONObject(titulo);
+            indicador= o.getString("titulo");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
 
         if (Build.VERSION.SDK_INT < 20) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
@@ -95,10 +109,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
             Notification notification = new Notification.InboxStyle(builder)
-                    .addLine(indica)
-                    .addLine(indica2)
-                    .addLine(indica3)
-                    .setBigContentTitle(mensaje)
+                    .addLine(indicador)
+                    .setBigContentTitle("ultima actualizacion")
                     .setSummaryText("ver mas")
                     .build();
 
