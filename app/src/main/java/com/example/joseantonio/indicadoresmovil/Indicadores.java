@@ -576,7 +576,7 @@ public class Indicadores extends AppCompatActivity
                         pigs =contacto.getString("not");
 
                         if (!pigs.equals("0")) {
-                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizacion"+" "+pigs);
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+pigs);
                         }
                     }
                 } catch (JSONException e) {

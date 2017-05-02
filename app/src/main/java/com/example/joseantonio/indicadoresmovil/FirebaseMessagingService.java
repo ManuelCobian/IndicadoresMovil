@@ -107,15 +107,22 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                     .setOngoing(true)
                     .setLights(Color.RED, 1, 0);
 
+            for (int z =0;z<indicador.length();z++){
 
-            Notification notification = new Notification.InboxStyle(builder)
-                    .addLine(indicador)
-                    .setBigContentTitle("ultima actualizacion")
-                    .setSummaryText("ver mas")
-                    .build();
+                Notification notification = new Notification.InboxStyle(builder)
+                        .addLine(indicador)
+                        .setBigContentTitle("ultima actualizacion")
+                        .setSummaryText("ver mas")
+                        .build();
 
-            NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
-            notificationManager.notify(121,notification);
+                NotificationManager notificationManager = (NotificationManager)getSystemService(this.NOTIFICATION_SERVICE);
+                notificationManager.notify(121,notification);
+
+            }
+
+
+
+
         }
 
 
