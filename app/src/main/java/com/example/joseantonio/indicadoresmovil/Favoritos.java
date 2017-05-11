@@ -586,6 +586,7 @@ Log.d("favoritos",String.valueOf(response));
                         if (!pigs.equals("0")) {
                             navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+pigs);
                         }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

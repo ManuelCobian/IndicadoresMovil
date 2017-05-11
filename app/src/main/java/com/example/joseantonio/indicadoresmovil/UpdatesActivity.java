@@ -81,7 +81,7 @@ public class UpdatesActivity extends AppCompatActivity
     TextView user, txtNombreCompleto;
     private Session session;
     EditText buscar;
-    String busqueda="no";
+
     String indica,activar;
 
     TextView lista;
@@ -117,7 +117,7 @@ public class UpdatesActivity extends AppCompatActivity
        Conexion();
         httpHandler handler = new httpHandler();
 
-        String txt = handler.post(FEED_URLs,busqueda,indica);
+        //String txt = handler.post(FEED_URLs,busqueda,indica);
 
         mProgressBar.setVisibility(View.VISIBLE);
 
@@ -545,18 +545,14 @@ public class UpdatesActivity extends AppCompatActivity
 
     private  void  eliminar_leido( final int id){
         //aqui se agrega a favoritos
-
         final String id_indica = String.valueOf(id);//recibo el di lo convierto en int
 
         if(id<0){
             Retorno();
         }
-
         String json="http://10.10.42.9:8080/apis/elimina_favoritos.php";
         RequestQueue requestQueue;
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-
-
         StringRequest request=new StringRequest(Request.Method.POST, json, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -572,7 +568,6 @@ public class UpdatesActivity extends AppCompatActivity
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String>parameters=new HashMap<String, String>();
                 parameters.put("id",id_indica);
-
 
                 return parameters;
 
