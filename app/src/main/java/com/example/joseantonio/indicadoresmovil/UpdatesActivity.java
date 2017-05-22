@@ -334,6 +334,8 @@ public class UpdatesActivity extends AppCompatActivity
 
 
 
+
+
             //Hide progressbar
             mProgressBar.setVisibility(View.GONE);
         }
@@ -506,10 +508,8 @@ public class UpdatesActivity extends AppCompatActivity
 
                 new UpdatesActivity.AsyncHttpTask().execute(FEED_URL);
                 if(mGridAdapter.isEmpty()){
-                    Retorno();
+                    aviso();
                 }
-
-
 
 
             }
@@ -534,6 +534,27 @@ public class UpdatesActivity extends AppCompatActivity
         AlertDialog alertDialog=aler.create();
         alertDialog.show();
     }
+
+
+
+    private void aviso(){
+        Context context=this;
+        AlertDialog.Builder aler=new AlertDialog.Builder(context)
+                .setTitle("Sin Actualizaciónes")
+                .setMessage("No se encontraron Actualizaciónes")
+                .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+        AlertDialog alertDialog=aler.create();
+        alertDialog.show();
+
+
+    }
+
 
     private void Retorno(){
         Toast.makeText(UpdatesActivity.this, "No hay actualizacion ", Toast.LENGTH_SHORT).show();

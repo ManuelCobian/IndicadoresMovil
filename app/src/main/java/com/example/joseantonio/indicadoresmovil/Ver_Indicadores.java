@@ -165,6 +165,7 @@ public class Ver_Indicadores extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(4).setVisible(false);
 
         //RECIBO LOS PARAMETROS
         SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
@@ -331,9 +332,11 @@ public class Ver_Indicadores extends AppCompatActivity
 
             if (result == 1) {
                 mGridAdapter.setGridData(mGridData);
-            } else {
+            }
+            if (mGridData.isEmpty()){
+                // back_inicio();
+                back_favoritos();
 
-                Retorno();
             }
 
             //Hide progressbar
@@ -415,6 +418,7 @@ public class Ver_Indicadores extends AppCompatActivity
         startActivity(favoritos);
         finish();
     }
+
     public void back_favoritos(){
         Intent favoritos=new Intent(Ver_Indicadores.this,Favoritos.class);
 
@@ -454,10 +458,6 @@ public class Ver_Indicadores extends AppCompatActivity
         finish();
 
     }
-
-
-
-
 
     private void logout(){
         session.setLoggedin(false);
@@ -505,7 +505,6 @@ public class Ver_Indicadores extends AppCompatActivity
                                     Toast.LENGTH_SHORT)
                                     .show();
             }
-
 
     public void buscar(){
 
@@ -601,6 +600,7 @@ public class Ver_Indicadores extends AppCompatActivity
 
                 new Ver_Indicadores.AsyncHttpTask().execute(FEED_URL);
 
+
             }
         } else {
        /* No estas conectado a internet */
@@ -608,7 +608,6 @@ public class Ver_Indicadores extends AppCompatActivity
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
-
 
     private void confirmacion(){
         Context context=this;
@@ -631,6 +630,7 @@ public class Ver_Indicadores extends AppCompatActivity
 
 
     public String  ShowNotif(){
+        String notif = null;
         RequestQueue requestQueue;
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -646,12 +646,16 @@ public class Ver_Indicadores extends AppCompatActivity
                     for (int i = 0; i < a.length(); i++) {
                         JSONObject contacto=a.getJSONObject(i);
 
-                        pigs =contacto.getString("not");
+                        String notif =contacto.getString("not");
 
-                        if (!pigs.equals("0")) {
-                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+pigs);
 
+                        if (!notif.isEmpty()){
+
+                            navigationView.getMenu().getItem(4).setVisible(true);
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+notif);
                         }
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -677,8 +681,7 @@ public class Ver_Indicadores extends AppCompatActivity
             }
         };
         requestQueue.add(request);
-        return pigs;
+        return notif;
     }
-
 
 }

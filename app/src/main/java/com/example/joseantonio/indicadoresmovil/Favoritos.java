@@ -75,7 +75,7 @@ public class Favoritos extends AppCompatActivity
     private String FEED_URLs = "http://plancolima.col.gob.mx/apis/get_favoritos";
     String text,id_fav,id_indica;
     EditText buscar;
-    String name,pass,seccion,pigs;
+    String name,pass,seccion;
     private Session session;
     TextView user, txtNombreCompleto;
     NavigationView navigationView;
@@ -88,6 +88,7 @@ public class Favoritos extends AppCompatActivity
         setContentView(R.layout.activity_favoritos);
         session = new Session(this);
         ShowNotif();
+     
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         buscar=(EditText)findViewById(R.id.buscar);
@@ -103,7 +104,6 @@ public class Favoritos extends AppCompatActivity
         SharedPreferences.Editor editor=preferencias.edit();
         editor.putString("back", seccion);
         editor.commit();
-
 
         mGridView = (GridView) findViewById(R.id.gridView);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -165,8 +165,10 @@ public class Favoritos extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(4).setVisible(false);
+
         //inserto el nombre en el nav
         View header=navigationView.getHeaderView(0);
         txtNombreCompleto = (TextView) header.findViewById(R.id.txtNombreCompleto);
@@ -461,9 +463,8 @@ public class Favoritos extends AppCompatActivity
         back_login();
     }
 
-
     //elimina favoritos
-        public  void eliminar(final String id_feo,String id_favor){
+    public  void eliminar(final String id_feo,String id_favor){
         RequestQueue requestQueue;
 
         //RECIBO LOS PARAMETROS
@@ -569,7 +570,9 @@ public class Favoritos extends AppCompatActivity
         back_temas();
     }
 
+   
     public String  ShowNotif(){
+        String notif = null;
         RequestQueue requestQueue;
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -585,11 +588,15 @@ public class Favoritos extends AppCompatActivity
                     for (int i = 0; i < a.length(); i++) {
                         JSONObject contacto=a.getJSONObject(i);
 
-                        pigs =contacto.getString("not");
+                       String notif =contacto.getString("not");
 
-                        if (!pigs.equals("0")) {
-                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+pigs);
+
+                        if (!notif.isEmpty()){
+
+                            navigationView.getMenu().getItem(4).setVisible(true);
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+notif);
                         }
+
 
                     }
                 } catch (JSONException e) {
@@ -616,7 +623,7 @@ public class Favoritos extends AppCompatActivity
             }
         };
         requestQueue.add(request);
-        return pigs;
+        return notif;
     }
 
 

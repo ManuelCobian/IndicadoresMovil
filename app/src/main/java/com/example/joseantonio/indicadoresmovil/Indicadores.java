@@ -156,6 +156,7 @@ public class Indicadores extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(4).setVisible(false);
 
 
         //inserto el nombre en el nav
@@ -559,6 +560,7 @@ public class Indicadores extends AppCompatActivity
     }
 
     public String  ShowNotif(){
+        String notif = null;
         RequestQueue requestQueue;
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -574,11 +576,16 @@ public class Indicadores extends AppCompatActivity
                     for (int i = 0; i < a.length(); i++) {
                         JSONObject contacto=a.getJSONObject(i);
 
-                        pigs =contacto.getString("not");
+                        String notif =contacto.getString("not");
 
-                        if (!pigs.equals("0")) {
-                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+pigs);
+
+                        if (!notif.isEmpty()){
+
+                            navigationView.getMenu().getItem(4).setVisible(true);
+                            navigationView.getMenu().getItem(4).setChecked(true).setTitle("Actualizaciones"+" "+notif);
                         }
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -604,7 +611,7 @@ public class Indicadores extends AppCompatActivity
             }
         };
         requestQueue.add(request);
-        return pigs;
+        return notif;
     }
 
 
