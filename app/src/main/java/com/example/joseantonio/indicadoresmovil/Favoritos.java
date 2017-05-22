@@ -86,6 +86,7 @@ public class Favoritos extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos);
+        session = new Session(this);
         ShowNotif();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -277,7 +278,7 @@ public class Favoritos extends AppCompatActivity
                back_updates();
             }
          else if (id == R.id.nav_share) {
-            session = new Session(this);
+
             //aqui cierras sesion
             logout();
         }
@@ -366,7 +367,8 @@ public class Favoritos extends AppCompatActivity
     private void parseResult(String result) {
         try {
             JSONObject response = new JSONObject(result);
-Log.d("favoritos",String.valueOf(response));
+
+
             JSONArray posts = response.optJSONArray("favoritos");
 
             GridItem item;
@@ -537,11 +539,13 @@ Log.d("favoritos",String.valueOf(response));
 
                 new Favoritos.AsyncHttpTask().execute(FEED_URL);
 
+
             }
         } else {
        /* No estas conectado a internet */
             mensaje();
             mProgressBar.setVisibility(View.INVISIBLE);
+            //logout();
         }
     }
 

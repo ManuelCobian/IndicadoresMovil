@@ -257,26 +257,26 @@ public class UpdatesActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
             back_inicio();
-           item.setTitle("ponchito");
+
         } else if (id == R.id.nav_gallery) {
             back_inicio();
-            item.setTitle("ponchito");
+
         } else if (id == R.id.nav_fav) {
             back_favoritos();
-            item.setTitle("ponchito");
+
         }
         else if (id == R.id.nav_aactualizacion) {
             back_updates();
-            item.setTitle("ponchito");
+
         }
         else if (id == R.id.nav_share) {
             session = new Session(this);
             //aqui cierras sesion
             logout();
-            item.setTitle("ponchito");
+
         }
         else if(id==R.id.nav_temas){
-            item.setTitle("ponchito");
+
            back_temas();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -312,6 +312,7 @@ public class UpdatesActivity extends AppCompatActivity
                     result = 1; // Successful
                 } else {
                     result = 0; //"Failed
+                    back_inicio();
 
                 }
             } catch (Exception e) {
@@ -325,15 +326,11 @@ public class UpdatesActivity extends AppCompatActivity
         protected void onPostExecute(Integer result) {
             // Download complete. Lets update UI
 
-            if (result != 0) {
+            if (result == 1) {
                 mGridAdapter.setGridData(mGridData);
-
-            }
-            if (mGridAdapter.isEmpty()){
+            } else {
                 Retorno();
             }
-
-
 
 
 
@@ -341,7 +338,6 @@ public class UpdatesActivity extends AppCompatActivity
             mProgressBar.setVisibility(View.GONE);
         }
     }
-
 
     String streamToString(InputStream stream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
@@ -459,8 +455,6 @@ public class UpdatesActivity extends AppCompatActivity
 
 
 
-
-
     private void logout(){
         session.setLoggedin(false);
         finish();
@@ -511,6 +505,10 @@ public class UpdatesActivity extends AppCompatActivity
                /* Estas conectado a internet usando wifi o redes moviles, puedes enviar tus datos */
 
                 new UpdatesActivity.AsyncHttpTask().execute(FEED_URL);
+                if(mGridAdapter.isEmpty()){
+                    Retorno();
+                }
+
 
 
 

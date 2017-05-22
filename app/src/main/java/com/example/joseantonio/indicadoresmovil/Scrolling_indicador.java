@@ -404,6 +404,7 @@ public class Scrolling_indicador extends AppCompatActivity {
                                     .load(R.drawable.salud)
                                     .centerCrop()
                                     .into(image);
+
                             // NAME="Salud";
 
                         }

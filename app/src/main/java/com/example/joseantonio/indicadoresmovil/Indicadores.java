@@ -141,7 +141,6 @@ public class Indicadores extends AppCompatActivity
         });
 
 
-
         //RECIBO LOS PARAMETROS
         SharedPreferences prefe=getSharedPreferences("usuario", Context.MODE_PRIVATE);
         NombreCompleto=prefe.getString("mail","");
@@ -283,8 +282,6 @@ public class Indicadores extends AppCompatActivity
     }
 
 
-
-
     //Downloading data asynchronously
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
@@ -391,7 +388,6 @@ public class Indicadores extends AppCompatActivity
         favoritos.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         favoritos.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(favoritos);
-
         finish();
     }
 
@@ -405,6 +401,8 @@ public class Indicadores extends AppCompatActivity
         startActivity(favoritos);
         finish();
     }
+
+
     public void back_favoritos(){
         Intent favoritos=new Intent(Indicadores.this,Favoritos.class);
 
@@ -426,8 +424,9 @@ public class Indicadores extends AppCompatActivity
         favoritos.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(favoritos);
         finish();
-
     }
+
+
     public  void back_updates(){
 
         Intent favoritos=new Intent(Indicadores.this,UpdatesActivity.class);
@@ -538,6 +537,8 @@ public class Indicadores extends AppCompatActivity
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
+
+
     private void confirmacion(){
         Context context=this;
         AlertDialog.Builder aler=new AlertDialog.Builder(context)
